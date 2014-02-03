@@ -18,12 +18,12 @@ define csrterc::webserver::smb_share (
 		$actual_valid_users = $user_name
 	}
 
-	csrterc::smb::share (
-	  $use_share_label ,
-	  $share_path ,
-	  $user_name ,
-    $password ,
-	  $actual_valid_users
-	)
+	csrterc::smb::share { $title:
+	  share_label => $use_share_label ,
+	  share_path => $share_path ,
+	  share_user => $user_name ,
+    password => $password ,
+	  valid_users => $actual_valid_users
+	}
 
 }

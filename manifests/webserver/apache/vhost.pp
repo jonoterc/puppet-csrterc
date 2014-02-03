@@ -8,6 +8,7 @@ define csrterc::webserver::apache::vhost(
     $site_mode       = 'development' ,
     $host_ip_address = undef ,
     $site_port       = undef ,
+    $custom_fragment = undef ,
   ) {
 
 	if $site_name {
@@ -61,13 +62,13 @@ define csrterc::webserver::apache::vhost(
   host { "${use_site_domain}":
     ip => $use_host_ip_address ,
   }
-  -> apache::vhost { $use_site_domain:
-    ensure => "present" ,
-    port           => $site_port ,
-    docroot_group    => $site_group_name ,
-    docroot_owner    => $site_owner_name ,
-    docroot        => $site_root , # ??? this directory will be auto-generated ???
-    custom_fragment => "PassengerRuby  ${ruby_path}\nRailsEnv  ${site_mode}" ,
+  -> ::apache::vhost { $use_site_domain:
+    ensure          => "present" ,
+    port            => $site_port ,
+    docroot_group   => $site_group_name ,
+    docroot_owner   => $site_owner_name ,
+    docroot         => $site_root ,
+    custom_fragment => $custom_fragment ,
   }
 
 }

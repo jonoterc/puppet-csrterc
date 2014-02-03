@@ -1,12 +1,12 @@
 define csrterc::smb::share (
-    $share_path ,
     $share_label = $name ,
-    $user_name ,
+    $share_path ,
+    $share_user ,
     $password ,
     $valid_users = undef ,
   ) {
 
-	$share_label = "smb-${name}-site" 
+	# $share_label = "smb-${name}-site" 
 
 	samba::server::share { $share_label:
 		comment => "smb volume for ${share_path}" ,
@@ -20,8 +20,8 @@ define csrterc::smb::share (
 		valid_users    => $actual_valid_users ,
 	}
 	
-	if ! defined(Samba::Server::User[$user_name]) {
-		samba::server::user { $user_name:
+	if ! defined(Samba::Server::User[$share_user]) {
+		samba::server::user { $share_user:
 			password => $password ,
 			require => Samba::Server::Share[$share_label]
 		}

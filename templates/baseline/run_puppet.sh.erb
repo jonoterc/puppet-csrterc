@@ -1,0 +1,3 @@
+#! /bin/bash
+
+sudo PATH=<%= @path %> <%= @puppet_bin_dir %>/puppet apply -v --graph --modulepath=<%= @puppet_config_dir %>/modules/ <%= @puppet_config_dir %>/manifests/main.pp

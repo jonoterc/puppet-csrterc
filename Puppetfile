@@ -32,7 +32,7 @@ mod 'apache',
 # mod 'maestrodev/rvm', '1.2.0'
 mod 'rvm',
 	:git => "git://github.com/jonoterc/puppet-rvm.git",
-	:ref => 'jonoterc'
+	:ref => 'mod-passenger'
 
 ## version control
 mod 'puppetlabs/vcsrepo', '0.2.0'

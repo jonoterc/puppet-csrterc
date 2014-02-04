@@ -26,7 +26,7 @@ mod 'puppetlabs/postgresql', '3.2.0'
 # mod 'puppetlabs/apache', '0.10.0'
 mod 'apache',
 	:git => "git://github.com/jonoterc/puppetlabs-apache.git",
-	:ref => 'passenger-mod'
+	:ref => 'mod-passenger'
 
 ## rvm/ruby
 # mod 'maestrodev/rvm', '1.2.0'

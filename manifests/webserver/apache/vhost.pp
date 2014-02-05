@@ -64,7 +64,7 @@ define csrterc::webserver::apache::vhost(
   }
   -> ::apache::vhost { $use_site_domain:
     ensure          => "present" ,
-    port            => $site_port ,
+    port            => $use_site_port ,
     docroot_group   => $site_group_name ,
     docroot_owner   => $site_owner_name ,
     docroot         => $site_root ,

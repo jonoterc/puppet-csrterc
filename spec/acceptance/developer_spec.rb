@@ -6,7 +6,6 @@ describe 'developer class' do
     it 'should work with no errors' do
       pp = default_manifest + <<-EOS
         csrterc::developer { 'dave':
-          crypted_password   => '$6$AiO5XZYT$71pQRC5qGrkHbe6hFhHQcrkpmrz2U7tqXJKQ/2PR5CLOd/Clr9tI/BVbxfDONzByyrf3GBvCvuellN/CwkH7I0' ,
           plaintext_password => '12345' , 
           group_name         => 'sudo' , 
         }

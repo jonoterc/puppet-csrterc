@@ -5,6 +5,8 @@ forge 'http://forge.puppetlabs.com'
 mod 'puppetlabs/stdlib', '4.1.0'
 # supports puppetlabs/postgresql on ubuntu
 mod 'puppetlabs/apt', '1.4.0'
+# supports hashing of plaintext passwords
+mod 'renttek/password', '1.0.0'
 
 ## networking
 mod 'attachmentgenie/ssh', '1.2.1'

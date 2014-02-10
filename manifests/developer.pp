@@ -1,6 +1,6 @@
 define csrterc::developer (
     $plaintext_password ,
-    $crypted_password ,
+    $hashed_password ,
     $user_name              = $title ,
     $group_name             = $title ,
     $has_home_path          = true ,
@@ -34,7 +34,7 @@ define csrterc::developer (
   user { "${user_name}":
     ensure     => "present" ,
     managehome => true ,
-    password   => "${crypted_password}" ,
+    password   => "${hashed_password}" ,
     home       => "${user_home_path}" ,
     shell      => "${user_shell}" ,
     gid        => "${group_name}" ,
@@ -45,7 +45,7 @@ define csrterc::developer (
   # ensure password is set on the first pass,
   # which is not otherwise happening on ubuntu
   -> exec { "correct ${user_name} password":
-    command => "usermod -p '${crypted_password}' ${user_name}" ,
+    command => "usermod -p '${hashed_password}' ${user_name}" ,
     onlyif  => "egrep -q '^${user_name}:!:' /etc/shadow" ,
     require => [
         User["${user_name}"] ,

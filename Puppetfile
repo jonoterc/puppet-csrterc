@@ -24,7 +24,7 @@ mod 'puppetlabs/postgresql', '3.2.0'
 ## webserver
 # restore this once the package_ensure bugfix has been released on puppetforge
 # mod 'puppetlabs/apache', '0.10.0'
-mod 'apache',
+mod 'puppetlabs/apache',
 	:git => "git://github.com/jonoterc/puppetlabs-apache.git",
 	:ref => 'mod-passenger'
 
@@ -35,4 +35,6 @@ mod 'rvm',
 	:ref => 'mod-passenger'
 
 ## version control
-mod 'puppetlabs/vcsrepo', '0.2.0'
+mod 'puppetlabs/vcsrepo',
+  :git => "https://github.com/jonoterc/puppetlabs-vcsrepo.git" ,
+  :ref => 'fix_svnlook'

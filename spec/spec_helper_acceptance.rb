@@ -42,7 +42,6 @@ hosts.each do |host|
 
   puts "installing puppet"
   on host, 'gem install puppet --no-ri --no-rdoc'
-#  on host, 'gem install librarian-puppet-maestrodev --no-ri --no-rdoc'
   on host, 'gem install librarian-puppet --no-ri --no-rdoc'
   on host, 'gem install ruby-shadow --no-ri --no-rdoc'
   on host, 'gem install ruby-augeas --no-ri --no-rdoc'

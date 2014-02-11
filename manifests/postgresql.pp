@@ -1,5 +1,5 @@
 class csrterc::postgresql(
-    $version = '9.1' , # 9.2. compatibility TBD
+    $version = '9.3' ,
     $postgres_password = undef ,
     $encoding = 'UTF8' ,
     $locale = 'en_NG' ,

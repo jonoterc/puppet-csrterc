@@ -19,7 +19,7 @@ mod 'example42/monit', '2.0.13'
 ## databases
 mod 'puppetlabs/sqlite', '0.0.1'
 mod 'puppetlabs/mysql', '2.1.0'
-mod 'puppetlabs/postgresql', '3.2.0'
+mod 'puppetlabs/postgresql', '3.3.0'
 
 ## webserver
 # restore this once the package_ensure bugfix has been released on puppetforge

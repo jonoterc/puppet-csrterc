@@ -8,10 +8,8 @@ mod 'puppetlabs/apt', '1.4.0'
 
 ## networking
 mod 'attachmentgenie/ssh', '1.2.1'
-mod 'netatalk',
-	:git => 'git://github.com/jonoterc/puppet-netatalk.git'
-mod 'samba',
-	:git => 'git://github.com/ajjahn/puppet-samba.git'
+mod 'rcoleman/netatalk', '0.3.0'
+mod 'ajjahn/samba', '0.2.0'
 
 ## monitoring
 mod 'example42/monit', '2.0.13'
@@ -23,18 +21,21 @@ mod 'puppetlabs/postgresql', '3.3.0'
 
 ## webserver
 # restore this once the package_ensure bugfix has been released on puppetforge
-# mod 'puppetlabs/apache', '0.10.0'
-mod 'puppetlabs/apache',
-	:git => "git://github.com/jonoterc/puppetlabs-apache.git",
-	:ref => 'mod-passenger'
+# fork fix merged, waiting on official forge release
+# mod 'puppetlabs/apache', '???'
+mod 'puppetlabs/apache', # using full name to ensure this is recognized by dependent modules
+	:git => "https://github.com/jonoterc/puppetlabs-apache.git",
+	:ref => 'fix_passenger_redhat'
 
 ## rvm/ruby
 # mod 'maestrodev/rvm', '1.2.0'
 mod 'rvm',
-	:git => "git://github.com/jonoterc/puppet-rvm.git",
+	:git => "https://github.com/jonoterc/puppet-rvm.git",
 	:ref => 'mod-passenger'
 
 ## version control
+# fork fix merged, waiting on official forge release
+# mod 'puppetlabs/vcsrepo', '???'
 mod 'puppetlabs/vcsrepo',
   :git => "https://github.com/jonoterc/puppetlabs-vcsrepo.git" ,
   :ref => 'fix_svnlook'

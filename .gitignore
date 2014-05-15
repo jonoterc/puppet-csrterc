@@ -7,3 +7,5 @@ spec/fixtures
 .*sw*
 modules
 .vagrant
+.librarian
+.tmp

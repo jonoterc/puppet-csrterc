@@ -29,7 +29,7 @@ mod 'puppetlabs/apache', # using full name to ensure this is recognized by depen
 
 ## rvm/ruby
 # mod 'maestrodev/rvm', '1.2.0'
-mod 'rvm',
+mod 'maestrodev/rvm',
 	:git => "https://github.com/jonoterc/puppet-rvm.git",
 	:ref => 'mod-passenger'
 

@@ -1,0 +1,76 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    ajjahn/samba (0.2.0)
+    attachmentgenie/ssh (1.2.1)
+      puppetlabs/stdlib (>= 2.2.1)
+    example42/monit (2.0.13)
+      example42/puppi (>= 2.0.0)
+    example42/puppi (2.1.9)
+    puppetlabs/apt (1.4.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/concat (1.1.0)
+      puppetlabs/stdlib (>= 4.0.0)
+    puppetlabs/firewall (1.1.0)
+    puppetlabs/mysql (2.1.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/postgresql (3.3.0)
+      puppetlabs/apt (< 2.0.0, >= 1.1.0)
+      puppetlabs/concat (< 2.0.0, >= 1.0.0)
+      puppetlabs/firewall (>= 0.0.4)
+      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs/sqlite (0.0.1)
+    puppetlabs/stdlib (4.1.0)
+    rcoleman/netatalk (0.3.0)
+      puppetlabs/concat (>= 1.0.0)
+      puppetlabs/stdlib (<= 4.1.0, >= 2.0.0)
+
+GIT
+  remote: https://github.com/jonoterc/puppet-rvm.git
+  ref: mod-passenger
+  sha: db31797e8a9a804769c9e401d77201c0bae388bf
+  specs:
+    maestrodev/rvm (1.5.4)
+      apache (>= 0)
+      puppetlabs/apache (>= 0.9.0)
+      puppetlabs/stdlib (>= 3.2.0)
+
+GIT
+  remote: https://github.com/jonoterc/puppetlabs-apache.git
+  ref: fix_passenger_redhat
+  sha: 73f94870ebbf39f62073675c7228faf4cbee19b8
+  specs:
+    puppetlabs/apache (1.0.1)
+      puppetlabs/concat (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.4.0)
+
+GIT
+  remote: https://github.com/jonoterc/puppetlabs-vcsrepo.git
+  ref: fix_svnlook
+  sha: 93b73f6877f9bdfdd291e2dd5ff5b8f6247d833d
+  specs:
+    puppetlabs/vcsrepo (0.2.0)
+
+GIT
+  remote: https://github.com/puppetlabs/puppetlabs-apache.git
+  ref: master
+  sha: 74dff45e5babcba3b20e8382ae969ccabda74aa2
+  specs:
+    apache (1.0.1)
+      puppetlabs/concat (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.4.0)
+
+DEPENDENCIES
+  ajjahn/samba (= 0.2.0)
+  attachmentgenie/ssh (= 1.2.1)
+  example42/monit (= 2.0.13)
+  maestrodev/rvm (>= 0)
+  puppetlabs/apache (>= 0)
+  puppetlabs/apt (= 1.4.0)
+  puppetlabs/mysql (= 2.1.0)
+  puppetlabs/postgresql (= 3.3.0)
+  puppetlabs/sqlite (= 0.0.1)
+  puppetlabs/stdlib (= 4.1.0)
+  puppetlabs/vcsrepo (>= 0)
+  rcoleman/netatalk (= 0.3.0)
+

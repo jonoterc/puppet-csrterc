@@ -1,7 +1,7 @@
 define csrterc::rvm::opt_out_user (
-    $home_path => undef ,
-    $user      => $title ,
-    $group     => undef ,
+    $home_path = undef ,
+    $user      = $title ,
+    $group     = undef ,
   ) {
 
   if $home_path {

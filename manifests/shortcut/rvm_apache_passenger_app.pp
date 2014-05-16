@@ -12,7 +12,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     $app_gemset               = $title ,
     $app_group                = $user ,
 
-    $apps_path                = '/var/apps/',
+    $apps_path                = '/var/apps',
     $app_bundle_install       = false ,
     $app_mode                 = 'development' ,
     # $app_rails_mode_default = false
@@ -124,7 +124,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   if $app_rubygems != undef {
     # rvm rubygems latest-1.8
     $app_rubygems_regex = regsubst($app_rubygems,'\D*(\d+\.\d+\.?).*','\1')
-    notice("app_rubygems_regex: ${app_rubygems_regex}")
+
     exec { "revert ${app_ruby} rubygems":
       command  => "sudo /bin/bash --login -c 'source /usr/local/rvm/scripts/rvm && rvm use '${app_ruby}' && rvm rubygems ${app_rubygems} --force'" ,
       unless   => "/bin/bash --login -c '(source /usr/local/rvm/scripts/rvm && rvm use '${app_ruby}' && gem -v) | grep ''^${app_rubygems_regex}'' '" ,
@@ -163,12 +163,15 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   # optional installation of app from vcs, with optional bundler install
   #####
 
-  $use_vcs = ( $vcs_provider == undef and $vcs_repo_url == undef )
+  $use_vcs = ( $vcs_provider != undef and $vcs_repo_url != undef )
+
+  $app_public_path = "${app_path}/public"
+  $app_public_system_path = "${app_public_path}/system"
 
   if ($use_vcs) {
 
     vcsrepo { $app_path:
-      ensure              => presenmt ,
+      ensure              => 'present' ,
       provider            => $vcs_provider ,
       source              => $vcs_repo_url ,
       basic_auth_username => $vcs_auth_username ,
@@ -181,22 +184,26 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
     if $app_bundle_install == true {
       exec { "bundle install ${app_path}":
-        command  => "/bin/bash --login -c 'source /usr/local/rvm/scripts/rvm && rvm use '${app_ruby_alias_gemset}' && cd ${app_path} && bundle install > log/bundle_install_${app_ruby}.log'" ,
+        command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use '${app_ruby_alias_gemset}' && cd ${app_path} && mkdir -p log && bundle install > log/bundle_install_${app_ruby}.log' ${app_user}" ,
         unless   => "ls -al ${app_path}/log/bundle_install_${app_ruby}.log" ,
         provider => 'shell' ,
-        require  => Vcsrepo[$app_path] ,
+        require  => [
+          Csrterc::User[$app_user] ,
+          Vcsrepo[$app_path] ,
+        ]
       }
     }
 
     $app_public_path_requirements = [ Vcsrepo[$app_path] ]
 
+    $vhost_requirements = [ Csrterc::User[$app_user], File[$app_public_system_path], Vcsrepo[$app_path] ]
+
   } else {
 
     $app_public_path_requirements = [ File[$app_path] ]
-  }
 
-  $app_public_path = "${app_path}/public"
-  $app_public_system_path = "${app_public_path}/system"
+    $vhost_requirements = [ Csrterc::User[$app_user], File[$app_public_system_path] ]
+  }
 
   if ! defined(File[$app_public_path]) {
     file { $app_public_path:
@@ -218,19 +225,15 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     ] ,
   }
 
-  -> csrterc::webserver::apache::passenger::vhost { $app_name:
-    app_path        => $app_path ,
+  csrterc::webserver::apache::passenger::vhost { $app_name:
+    site_path        => $app_path ,
     ruby_path       => "/usr/local/rvm/wrappers/${app_ruby_alias_gemset}/ruby" ,
     site_domain     => $app_domain ,
     site_root       => $app_public_path ,
     site_owner_name => $app_user ,
     site_group_name => $app_group ,
     site_mode       => $app_mode ,
-    require         => [
-      Csrterc::User[$app_user] ,
-      Vcsrepo[$app_path] ,
-      File[$app_public_system_path]
-    ] ,
+    require         => $vhost_requirements ,
   }
 
   #####
@@ -294,7 +297,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
       csrterc::user::afp_share { $app_user:
         require => [
           Class['csrterc::afp'] ,
-          File[$app_user_home_path] ,
+          Csrterc::User[$app_user] ,
         ] ,
       }
     }
@@ -326,7 +329,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
         password => $app_user_password ,
         require  => [
           Class['csrterc::smb'] ,
-          File[$app_user_home_path] ,
+          Csrterc::User[$app_user] ,
         ] ,
       }
     }

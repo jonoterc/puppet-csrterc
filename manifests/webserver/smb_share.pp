@@ -1,5 +1,5 @@
 define csrterc::webserver::smb_share (
-    $share_path = $name,
+    $share_path = $title,
     $user_name ,
     $password ,
     $valid_users = undef ,

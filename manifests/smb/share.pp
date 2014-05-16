@@ -1,5 +1,5 @@
 define csrterc::smb::share (
-    $share_label = $name ,
+    $share_label = $title ,
     $share_path ,
     $share_user ,
     $password ,

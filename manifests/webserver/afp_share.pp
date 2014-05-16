@@ -1,5 +1,5 @@
 define csrterc::webserver::afp_share (
-    $share_path = $name ,
+    $share_path = $title ,
     $user_name ,
     $share_label = undef
 	) {

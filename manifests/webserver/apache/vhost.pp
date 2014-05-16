@@ -1,9 +1,9 @@
 define csrterc::webserver::apache::vhost(
     $site_path ,
-    $site_name       = $name ,
+    $site_name       = $title ,
     $site_domain     = undef ,
-    $site_group_name = $name ,
-    $site_owner_name = $name ,
+    $site_group_name = $title ,
+    $site_owner_name = $title ,
     $site_root       = $site_path ,
     $site_mode       = 'development' ,
     $host_ip_address = undef ,

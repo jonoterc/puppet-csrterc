@@ -34,16 +34,17 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     $smb_enabled              = false ,
   ) {
 
+  if $app_user_home != undef {
+    $app_user_home_path = $app_user_home
+  } else {
+    $app_user_home_path = "/home/${app_user}"
+  }
+
   #####
   # app-specific user account with login and rvm
   #####
 
   if ! defined(Csrterc::User[$app_user]) {
-    if $app_user_home != undef {
-      $app_user_home_path = $app_user_home
-    } else {
-      $app_user_home_path = "/home/${app_user}"
-    }
 
     if $app_user_password == undef or $app_user_hashed_password == undef {
       fail("csrterc::shortcut::rvm_apache_passenger requires both app_user_password and app_user_hashed_password variables, as app_user:'${app_user}' does not already exist and must be created")
@@ -86,11 +87,6 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
   if ($app_user_home != false) {
 
-    if $app_user_home != undef {
-      $app_user_home_path = $app_user_home
-    } else {
-      $app_user_home_path = "/home/${app_user}"
-    }
     $app_user_home_apps_path = "${app_user_home_path}/apps"
 
     file { $app_user_home_apps_path:

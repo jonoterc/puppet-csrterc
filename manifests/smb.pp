@@ -1,7 +1,7 @@
 class csrterc::smb (
     $server_name = '-' ,
     $server_string = 'SMB Server' ,
-    $interfaces = undef, #= 'eth0 lo' ,
+    $interfaces = 'eth0 lo' ,
     $security = 'user' ,
   ) {
 

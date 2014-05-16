@@ -1,0 +1,2 @@
+class csrterc::shortcut { }
+

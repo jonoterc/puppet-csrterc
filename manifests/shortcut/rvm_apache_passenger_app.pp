@@ -227,7 +227,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
   csrterc::webserver::apache::passenger::vhost { $app_name:
     site_path        => $app_path ,
-    ruby_path       => "/usr/local/rvm/wrappers/${app_ruby_alias_gemset}/ruby" ,
+    ruby_path       => "/usr/local/rvm/wrappers/${app_ruby}@${app_gemset}/ruby" ,
     site_domain     => $app_domain ,
     site_root       => $app_public_path ,
     site_owner_name => $app_user ,

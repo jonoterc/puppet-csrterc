@@ -1,4 +1,4 @@
-class csrterc::shortcut::rvm_apache_passenger_app (
+define csrterc::shortcut::rvm_apache_passenger_app (
     $app_ruby ,
     $app_domain ,
     $app_user_password        = undef ,
@@ -39,13 +39,13 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   #####
 
   if ! defined(Csrterc::User[$app_user]) {
-    if defined($app_user_home) {
+    if $app_user_home != undef {
       $app_user_home_path = $app_user_home
     } else {
       $app_user_home_path = "/home/${app_user}"
     }
 
-    if ! ( defined($app_user_password) or defined($app_user_password) ) {
+    if $app_user_password == undef or $app_user_hashed_password == undef {
       fail("csrterc::shortcut::rvm_apache_passenger requires both app_user_password and app_user_hashed_password variables, as app_user:'${app_user}' does not already exist and must be created")
     }
 
@@ -86,7 +86,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
 
   if ($app_user_home != false) {
 
-    if defined($app_user_home) {
+    if $app_user_home != undef {
       $app_user_home_path = $app_user_home
     } else {
       $app_user_home_path = "/home/${app_user}"
@@ -125,7 +125,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
     }
   }
 
-  if defined($app_rubygems) {
+  if $app_rubygems != undef {
     # rvm rubygems latest-1.8
     $app_rubygems_regex = regsubst($app_rubygems,'\D*(\d+\.\d+\.?).*','\1')
     notice("app_rubygems_regex: ${app_rubygems_regex}")
@@ -167,7 +167,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   # optional installation of app from vcs, with optional bundler install
   #####
 
-  $use_vcs = defined($vcs_provider) and defined($vcs_repo_url)
+  $use_vcs = ( $vcs_provider == undef and $vcs_repo_url == undef )
 
   if ($use_vcs) {
 
@@ -192,23 +192,11 @@ class csrterc::shortcut::rvm_apache_passenger_app (
       }
     }
 
-    if ! defined("${app_path}/public") {
-      file { "${app_path}/public":
-        ensure  => 'directory' ,
-        owner   => $app_user ,
-        group   => $app_group ,
-        mode    => '0644' ,
-        require => [
-          Vcsrepo[$app_path] ,
-        ] ,
-      }
-    }
-
-    $app_public_path_requirements = [ File[$app_path] ]
+    $app_public_path_requirements = [ Vcsrepo[$app_path] ]
 
   } else {
 
-    $app_public_path_requirements = [ Vcsrepo[$app_path] ]
+    $app_public_path_requirements = [ File[$app_path] ]
   }
 
   $app_public_path = "${app_path}/public"
@@ -252,7 +240,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   #####
   # mysql database support
   #####
-  if defined($mysql_app_db) {
+  if $mysql_app_db != undef and $mysql_app_db != false {
 
     if ! defined(Class['csrterc::mysql']) {
       fail('csrterc::shortcut:rvm_apache_passenger_app failure; csrterc::mysql support must be provided when $mysql_enabled is true')
@@ -264,7 +252,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
       csrterc::user::mysql_db { $mysql_app_db: }
     }
 
-    if ( defined($mysql_test_db) ) {
+    if ( $mysql_test_db != undef and $mysql_test_db != false ) {
       csrterc::user::mysql_db { $mysql_test_db: }
     } elsif ( $app_mode == 'development' ) {
       csrterc::user::mysql_db { "${app_name}_test": }
@@ -275,7 +263,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   #####
   # postgresql database support
   #####
-  if defined($postgresql_app_db) {
+  if $postgresql_app_db != undef and $postgresql_app_db != false {
 
     if ! defined(Class['csrterc::postgresql']) {
       fail('csrterc::shortcut:rvm_apache_passenger_app failure; csrterc::postgresql support must be provided when $postgresql_enabled is true')
@@ -287,7 +275,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
       csrterc::user::postgresql_db { $postgresql_app_db: }
     }
 
-    if ( defined($postgresql_test_db) ) {
+    if ( $postgresql_test_db != undef and $postgresql_test_db != false  ) {
       csrterc::user::postgresql_db { $postgresql_test_db: }
     } elsif ( $app_mode == 'development' ) {
       csrterc::user::postgresql_db { "${app_name}_test": }
@@ -300,7 +288,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   #####
 
   if ($afp_enabled) {
-    if ! defined('csrterc::afp') {
+    if ! defined(Class['csrterc::afp']) {
       class { 'csrterc::afp':
         server_name => "posterhall ${app_mode} AFP" ,
       }
@@ -330,7 +318,7 @@ class csrterc::shortcut::rvm_apache_passenger_app (
   #####
 
   if ($smb_enabled == true) {
-    if ! defined('csrterc::smb') {
+    if ! defined(Class['csrterc::smb']) {
       class { 'csrterc::smb':
         server_name   => 'development' ,
         server_string => "posterhall ${app_mode} SMB" ,

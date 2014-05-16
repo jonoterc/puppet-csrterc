@@ -1,5 +1,5 @@
-class csrterc::repo {
+class csrterc::monitoring {
 
   class { '::monit': }
-  
+
 }

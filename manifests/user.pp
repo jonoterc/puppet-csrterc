@@ -5,19 +5,19 @@ define csrterc::user (
     $group_name             = $title ,
     $home_path              = undef ,
     $user_shell             = '/bin/bash' ,
-    $additional_user_groups = ["sudo"] ,
+    $additional_user_groups = ['sudo'] ,
     $rvm_user               = false ,
   ) {
 
   if $group_name != undef {
     group { $group_name:
-      ensure => "present"
+      ensure => 'present'
     }
   }
 
   if $home_path == false {
     $user_home_path = undef
-  } elsif defined($home_path) {
+  } elsif $home_path != undef {
     $user_home_path = $home_path
   } else {
     $user_home_path = "/home/${user_name}/"
@@ -34,9 +34,9 @@ define csrterc::user (
       }
     }
   }
-  
+
   user { $user_name:
-    ensure     => "present" ,
+    ensure     => 'present' ,
     managehome => true ,
     password   => $hashed_password ,
     home       => $user_home_path ,
@@ -57,9 +57,9 @@ define csrterc::user (
       ],
   }
 
-	if $rvm_user == true {
-  	::rvm::system_user { $user_name: }
-	}
+  if $rvm_user == true {
+    ::rvm::system_user { $user_name: }
+  }
 
 }
 

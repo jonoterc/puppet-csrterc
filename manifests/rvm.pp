@@ -1,8 +1,6 @@
 class csrterc::rvm (
     $rvm_version = undef ,
     $default_ruby = undef ,
-    $system_ruby_path = undef ,
-    $system_ruby_user = undef ,
   ) {
 
   class { '::rvm':
@@ -19,15 +17,4 @@ class csrterc::rvm (
 	  }
   }
   
-  if $system_ruby_path {
-    file { "${system_ruby_path}.ruby-version":
-      content => 'system' ,
-      mode    => '0644' ,
-      owner   => "${system_ruby_user}" ,
-      group   => "${system_ruby_user}" ,
-      require => [
-      	Class['::rvm'] ,
-      ] ,
-    }
-  }
 }

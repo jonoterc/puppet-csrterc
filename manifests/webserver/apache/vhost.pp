@@ -59,7 +59,7 @@ define csrterc::webserver::apache::vhost(
     }
   }
 
-  host { "${use_site_domain}":
+  host { $use_site_domain:
     ip => $use_host_ip_address ,
   }
   -> ::apache::vhost { $use_site_domain:

@@ -10,7 +10,7 @@ define csrterc::user (
   ) {
 
   if $group_name != undef {
-    group { "${group_name}":
+    group { $group_name:
       ensure => "present"
     }
   }
@@ -27,7 +27,7 @@ define csrterc::user (
     default: {
       if $group_name != undef {
         $user_requirements = [
-          Group["${group_name}"] ,
+          Group[$group_name] ,
         ]
       } else {
         $user_requirements = []
@@ -35,7 +35,7 @@ define csrterc::user (
     }
   }
   
-  user { "${user_name}":
+  user { $user_name:
     ensure     => "present" ,
     managehome => true ,
     password   => $hashed_password ,
@@ -58,7 +58,7 @@ define csrterc::user (
   }
 
 	if $rvm_user == true {
-  	::rvm::system_user { "${user_name}": }
+  	::rvm::system_user { $user_name: }
 	}
 
 }

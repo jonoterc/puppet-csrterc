@@ -4,7 +4,7 @@ define csrterc::rvm::opt_out_user (
     $group     => undef ,
   ) {
 
-  if defined($home_path) {
+  if $home_path {
     $opt_out_path = $home_path
   } else {
     $opt_out_path = "/home/${user}"

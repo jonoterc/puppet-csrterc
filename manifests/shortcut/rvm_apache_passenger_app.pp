@@ -133,6 +133,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     }
   }
 
+  $app_ruby_gemset = "${app_ruby}@${app_gemset}"
   $app_ruby_alias_gemset = "${app_ruby_alias}@${app_gemset}"
 
   rvm_alias { $app_ruby_alias:
@@ -184,11 +185,12 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
     if $app_bundle_install == true {
       exec { "bundle install ${app_path}":
-        command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use '${app_ruby_alias_gemset}' && cd ${app_path} && mkdir -p log && bundle install > log/bundle_install_${app_ruby}.log' ${app_user}" ,
+        command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use ${app_ruby_gemset} && cd ${app_path} && mkdir -p log && bundle install > log/bundle_install_${app_ruby}.log' ${app_user}" ,
         unless   => "ls -al ${app_path}/log/bundle_install_${app_ruby}.log" ,
         provider => 'shell' ,
         require  => [
           Csrterc::User[$app_user] ,
+          Rvm_system_ruby[$app_ruby] ,
           Vcsrepo[$app_path] ,
         ]
       }
@@ -227,7 +229,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
   csrterc::webserver::apache::passenger::vhost { $app_name:
     site_path        => $app_path ,
-    ruby_path       => "/usr/local/rvm/wrappers/${app_ruby}@${app_gemset}/ruby" ,
+    ruby_path       => "/usr/local/rvm/wrappers/${app_ruby_gemset}/ruby" ,
     site_domain     => $app_domain ,
     site_root       => $app_public_path ,
     site_owner_name => $app_user ,

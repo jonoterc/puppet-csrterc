@@ -1,4 +1,4 @@
-define csrterc::developer::mysql_user (
+define csrterc::user::mysql_user (
     $user_name = $title ,
     $password = '' ,
     $host = 'localhost' ,

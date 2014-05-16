@@ -1,4 +1,4 @@
-define csrterc::developer::mysql_grant (
+define csrterc::user::mysql_grant (
     $user_name     = $title ,
     $database_name = $title ,
     $table_name    = '*' ,

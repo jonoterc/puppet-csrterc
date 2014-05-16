@@ -1,4 +1,4 @@
-define csrterc::developer::mysql_db (
+define csrterc::user::mysql_db (
     $user_name = $title ,
 	) {
 

@@ -1,4 +1,4 @@
-define csrterc::developer::smb_share (
+define csrterc::user::smb_share (
     $user_name  = $title ,
     $password ,
     $share_path = undef

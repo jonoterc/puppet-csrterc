@@ -1,9 +1,9 @@
-define csrterc::developer (
+define csrterc::user (
     $plaintext_password ,
     $hashed_password ,
     $user_name              = $title ,
     $group_name             = $title ,
-    $has_home_path          = true ,
+    $home_path              = undef ,
     $user_shell             = '/bin/bash' ,
     $additional_user_groups = ["sudo"] ,
     $rvm_user               = false ,
@@ -15,7 +15,11 @@ define csrterc::developer (
     }
   }
 
-  if $has_home_path == true {
+  if $home_path == false {
+    $user_home_path = undef
+  } elsif defined($home_path) {
+    $user_home_path = $home_path
+  } else {
     $user_home_path = "/home/${user_name}/"
   }
 
@@ -34,10 +38,10 @@ define csrterc::developer (
   user { "${user_name}":
     ensure     => "present" ,
     managehome => true ,
-    password   => "${hashed_password}" ,
-    home       => "${user_home_path}" ,
-    shell      => "${user_shell}" ,
-    gid        => "${group_name}" ,
+    password   => $hashed_password ,
+    home       => $user_home_path ,
+    shell      => $user_shell ,
+    gid        => $group_name ,
     groups     => $additional_user_groups ,
     require    => $user_requirements
   }
@@ -48,13 +52,13 @@ define csrterc::developer (
     command => "usermod -p '${hashed_password}' ${user_name}" ,
     onlyif  => "egrep -q '^${user_name}:!:' /etc/shadow" ,
     require => [
-        User["${user_name}"] ,
-        Group["${group_name}"] ,
+        User[$user_name] ,
+        Group[$group_name] ,
       ],
   }
 
 	if $rvm_user == true {
-  	::rvm::system_user { $user_name: }
+  	::rvm::system_user { "${user_name}": }
 	}
 
 }

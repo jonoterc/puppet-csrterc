@@ -1,4 +1,4 @@
-define csrterc::developer::afp_share (
+define csrterc::user::afp_share (
     $user_name  = $title ,
     $share_path = undef
 	) {

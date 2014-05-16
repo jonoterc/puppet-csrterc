@@ -1,4 +1,4 @@
-define csrterc::developer::sqlite_db (
+define csrterc::user::sqlite_db (
     $user_name = $title ,
 		$db_path   = undef ,
 	) {

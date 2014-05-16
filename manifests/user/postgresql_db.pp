@@ -1,4 +1,4 @@
-define csrterc::developer::postgresql_db (
+define csrterc::user::postgresql_db (
     $user_name = $title ,
     $password = '' ,
 	) {

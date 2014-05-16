@@ -15,7 +15,8 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     $apps_path                = '/var/apps',
     $app_bundle_install       = false ,
     $app_mode                 = 'development' ,
-    # $app_rails_mode_default = false
+    $app_mode_passenger_var   = undef ,
+    $passenger_custom_config  = undef ,
 
     $mysql_enabled            = false ,
     $mysql_app_db             = undef ,
@@ -146,20 +147,6 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     require => Rvm_alias[$app_ruby_alias] ,
   }
 
-  /*
-  #####
-  # optionally set default RAILS_ENV
-  #####
-
-  if ($app_mode_default == true)
-    file { '/etc/profile.d/rails_env.sh':
-      ensure  => "file" ,
-      content => "export RAILS_ENV=${app_mode}" ,
-      mode    => 0644 ,
-    }
-  }
-  */
-
   #####
   # optional installation of app from vcs, with optional bundler install
   #####
@@ -228,13 +215,15 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   }
 
   csrterc::webserver::apache::passenger::vhost { $app_name:
-    site_path        => $app_path ,
+    site_path       => $app_path ,
     ruby_path       => "/usr/local/rvm/wrappers/${app_ruby_gemset}/ruby" ,
     site_domain     => $app_domain ,
     site_root       => $app_public_path ,
     site_owner_name => $app_user ,
     site_group_name => $app_group ,
     site_mode       => $app_mode ,
+    site_mode_var   => $app_mode_passenger_var ,
+    custom_config   => $passenger_custom_config ,
     require         => $vhost_requirements ,
   }
 
@@ -254,9 +243,11 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     }
 
     if ( $mysql_test_db != undef and $mysql_test_db != false ) {
-      csrterc::user::mysql_db { $mysql_test_db: }
-    } elsif ( $app_mode == 'development' ) {
-      csrterc::user::mysql_db { "${app_name}_test": }
+      if $mysql_test_db == true {
+        csrterc::user::mysql_db { "${app_name}_test": }
+      } else {
+        csrterc::user::mysql_db { $mysql_test_db: }
+      }
     }
 
   }
@@ -276,10 +267,12 @@ define csrterc::shortcut::rvm_apache_passenger_app (
       csrterc::user::postgresql_db { $postgresql_app_db: }
     }
 
-    if ( $postgresql_test_db != undef and $postgresql_test_db != false  ) {
-      csrterc::user::postgresql_db { $postgresql_test_db: }
-    } elsif ( $app_mode == 'development' ) {
-      csrterc::user::postgresql_db { "${app_name}_test": }
+    if ( $postgresql_test_db != undef and $postgresql_test_db != false ) {
+      if $postgresql_test_db == true {
+        csrterc::user::postgresql_db { "${app_name}_test": }
+      } else {
+        csrterc::user::postgresql_db { $postgresql_test_db: }
+      }
     }
 
   }

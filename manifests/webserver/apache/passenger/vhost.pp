@@ -11,6 +11,7 @@ define csrterc::webserver::apache::passenger::vhost(
     $site_mode       = 'development' ,
     $host_ip_address = undef ,
     $site_port       = undef ,
+    $custom          = undef ,
   ) {
 
   # set ruby for the project directory
@@ -42,7 +43,7 @@ define csrterc::webserver::apache::passenger::vhost(
     site_mode       => $site_mode ,
     host_ip_address => $host_ip_address ,
     site_port       => $site_port ,
-    custom_fragment => "PassengerRuby  ${ruby_path}\nRailsEnv  ${site_mode}" ,
+    custom_fragment => "PassengerRuby  ${ruby_path}\nRailsEnv  ${site_mode}\n${custom}" ,
   }
 
 }

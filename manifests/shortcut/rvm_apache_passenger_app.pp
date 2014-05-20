@@ -153,6 +153,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
 
   $use_vcs = ( $vcs_provider != undef and $vcs_repo_url != undef )
 
+  $app_log_path = "${app_path}/log"
   $app_public_path = "${app_path}/public"
   $app_public_system_path = "${app_public_path}/system"
 
@@ -171,6 +172,19 @@ define csrterc::shortcut::rvm_apache_passenger_app (
     }
 
     if $app_bundle_install == true {
+      if ! defined(File[$app_log_path]) {
+        file { $app_log_path:
+          ensure  => 'directory' ,
+          owner   => $app_user ,
+          group   => $app_group ,
+          mode    => '0644' ,
+          require  => [
+            Csrterc::User[$app_user] ,
+            Vcsrepo[$app_path] ,
+          ] ,
+        }
+      }
+
       exec { "bundle install ${app_path}":
         command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use ${app_ruby_gemset} && cd ${app_path} && mkdir -p log && bundle install > log/bundle_install_${app_ruby}.log' ${app_user}" ,
         unless   => "ls -al ${app_path}/log/bundle_install_${app_ruby}.log" ,
@@ -179,6 +193,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
           Csrterc::User[$app_user] ,
           Rvm_system_ruby[$app_ruby] ,
           Vcsrepo[$app_path] ,
+          File[$app_log_path] ,
         ]
       }
     }

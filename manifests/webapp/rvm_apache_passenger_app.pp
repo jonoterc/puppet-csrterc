@@ -1,4 +1,4 @@
-define csrterc::shortcut::rvm_apache_passenger_app (
+define csrterc::webapp::rvm_apache_passenger_app (
     $app_ruby ,
     $app_domain ,
     $app_user_password        = undef ,
@@ -48,7 +48,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   if ! defined(Csrterc::User[$app_user]) {
 
     if $app_user_password == undef or $app_user_hashed_password == undef {
-      fail("csrterc::shortcut::rvm_apache_passenger requires both app_user_password and app_user_hashed_password variables, as app_user:'${app_user}' does not already exist and must be created")
+      fail("csrterc::webapp::rvm_apache_passenger requires both app_user_password and app_user_hashed_password variables, as app_user:'${app_user}' does not already exist and must be created")
     }
 
     csrterc::user { $app_user:
@@ -248,7 +248,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   if $mysql_app_db != undef and $mysql_app_db != false {
 
     if ! defined(Class['csrterc::mysql']) {
-      fail('csrterc::shortcut:rvm_apache_passenger_app failure; csrterc::mysql support must be provided when $mysql_enabled is true')
+      fail('csrterc::webapp:rvm_apache_passenger_app failure; csrterc::mysql support must be provided when $mysql_enabled is true')
     }
 
     if $mysql_app_db == true {
@@ -273,7 +273,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
   if $postgresql_app_db != undef and $postgresql_app_db != false {
 
     if ! defined(Class['csrterc::postgresql']) {
-      fail('csrterc::shortcut:rvm_apache_passenger_app failure; csrterc::postgresql support must be provided when $postgresql_enabled is true')
+      fail('csrterc::webapp:rvm_apache_passenger_app failure; csrterc::postgresql support must be provided when $postgresql_enabled is true')
     }
 
     if $postgresql_app_db == true {

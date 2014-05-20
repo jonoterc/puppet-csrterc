@@ -1,4 +1,4 @@
-class csrterc::shortcut::app_mode_default (
+class csrterc::webapp::app_mode_default (
     $app_mode      = 'development' ,
     $app_mode_var  = 'RAILS_ENV' ,
     $app_mode_file = $app_mode_var ,

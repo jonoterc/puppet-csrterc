@@ -1,4 +1,4 @@
-class csrterc::shortcut::rvm_apache_passenger (
+class csrterc::webapp::rvm_apache_passenger (
     $rvm_version ,
     $passenger_ruby ,
     $passenger_version ,

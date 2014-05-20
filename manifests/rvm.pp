@@ -1,17 +1,14 @@
 class csrterc::rvm (
-    $rvm_version  = undef ,
-    $default_ruby = undef ,
+    $rvm_version   = undef ,
+    $default_ruby  = undef ,
+    $max_time_flag = 20 ,
   ) {
 
-  class { '::rvm':
-    version => $rvm_version ,
-  }
-
   class { '::rvm::rvmrc':
-    max_time_flag => '20' ,
-    before        => [
-      Class['rvm'] ,
-    ]
+    max_time_flag => $max_time_flag ,
+  }
+  -> class { '::rvm':
+    version => $rvm_version ,
   }
 
   if $default_ruby {

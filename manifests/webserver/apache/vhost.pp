@@ -11,27 +11,27 @@ define csrterc::webserver::apache::vhost(
     $custom_fragment = undef ,
   ) {
 
-	if $site_name {
-		$use_site_domain = $site_domain 
-	} else {
-		case $site_mode {
-			'development': {
-				$use_site_domain = "${site_name}.dev"
-			}
-			'test': {
-				$use_site_domain = "${site_name}.test"
-			}
-			'webdev': {
-				$use_site_domain = "${site_name}.webdev"
-			}
-			'webtest': {
-				$use_site_domain = "${site_name}.webtest"
-			}
-			default: { # same as production
-			  fail('non-dev, non-test virtual hosts must specify a domain with the $site_name parameter.')
-			}
-		}
-	}
+  if $site_name {
+    $use_site_domain = $site_domain
+  } else {
+    case $site_mode {
+      'development': {
+        $use_site_domain = "${site_name}.dev"
+      }
+      'test': {
+        $use_site_domain = "${site_name}.test"
+      }
+      'webdev': {
+        $use_site_domain = "${site_name}.webdev"
+      }
+      'webtest': {
+        $use_site_domain = "${site_name}.webtest"
+      }
+      default: { # same as production
+        fail('non-dev, non-test virtual hosts must specify a domain with the $site_name parameter.')
+      }
+    }
+  }
 
   if $host_ip_address {
     $use_host_ip_address = $host_ip_address
@@ -41,7 +41,7 @@ define csrterc::webserver::apache::vhost(
         $use_host_ip_address = '127.0.0.1'
       }
       default: {
-			  fail('non-dev, non-test virtual hosts must specify an IP address with $host_ip_address.')
+        fail('non-dev, non-test virtual hosts must specify an IP address with $host_ip_address.')
       }
     }
   }
@@ -54,7 +54,7 @@ define csrterc::webserver::apache::vhost(
         $use_site_port = '80'
       }
       default: {
-			  fail('non-dev, non-test virtual hosts must specify a port with $site_port.')
+        fail('non-dev, non-test virtual hosts must specify a port with $site_port.')
       }
     }
   }
@@ -63,7 +63,7 @@ define csrterc::webserver::apache::vhost(
     ip => $use_host_ip_address ,
   }
   -> ::apache::vhost { $use_site_domain:
-    ensure          => "present" ,
+    ensure          => 'present' ,
     port            => $use_site_port ,
     docroot_group   => $site_group_name ,
     docroot_owner   => $site_owner_name ,

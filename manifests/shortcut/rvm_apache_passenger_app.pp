@@ -178,7 +178,7 @@ define csrterc::shortcut::rvm_apache_passenger_app (
           owner   => $app_user ,
           group   => $app_group ,
           mode    => '0644' ,
-          require  => [
+          require => [
             Csrterc::User[$app_user] ,
             Vcsrepo[$app_path] ,
           ] ,

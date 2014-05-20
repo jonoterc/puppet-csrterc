@@ -18,22 +18,22 @@ define csrterc::webserver::apache::passenger::vhost(
   # set ruby for the project directory
   # using .ruby-version instead of .rvmrc to bypass auto-prompting
   file { "${site_name} .ruby-version":
-    ensure  => "file" ,
+    ensure  => 'file' ,
     path    => "${site_path}/.ruby-version" ,
     owner   => $site_owner_name ,
     group   => $site_group_name ,
-    mode    => 0664 ,
-    content => "${ruby_alias}" # using the alias instead of the expanded name seems to work OK
+    mode    => '0664' ,
+    content => $ruby_alias # using the alias instead of the expanded name seems to work OK
   }
   -> file { "${site_name} .ruby-gemset":
-    ensure  => "file" ,
+    ensure  => 'file' ,
     path    => "${site_path}/.ruby-gemset" ,
     owner   => $site_owner_name ,
     group   => $site_group_name ,
-    mode    => 0664 ,
-    content => "${gemset_name}"
+    mode    => '0664' ,
+    content => $gemset_name
   }
-  
+
   csrterc::webserver::apache::vhost { $title:
     site_path       => $site_path ,
     site_name       => $site_name ,

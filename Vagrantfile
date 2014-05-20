@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     centos.vm.provision :puppet do |puppet|
       puppet.manifest_file  = "centos.pp"
       puppet.manifests_path = "Vagrant/puppet/manifests"
-    end 
+    end
   end
 
   config.vm.define "fedora" do |fedora|
@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     fedora.vm.provision :puppet do |puppet|
       puppet.manifests_path = "Vagrant/puppet/manifests"
       puppet.manifest_file  = "fedora.pp"
-    end 
+    end
   end
 
   config.vm.define "ubuntu" do |ubuntu|
@@ -41,6 +41,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ubuntu.vm.provision :puppet do |puppet|
       puppet.manifests_path = "Vagrant/puppet/manifests"
       puppet.manifest_file  = "ubuntu.pp"
-    end  
+    end
   end
 end

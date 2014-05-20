@@ -5,22 +5,22 @@ class csrterc::webserver::apache (
     $listen_ports        = ['80'] , #['80', '8080', '3000'] ,
   ) {
 
-  class { "::apache":
+  class { '::apache':
       default_mods   => $enable_default_mods ,
       package_ensure => 'present' ,
       default_vhost  => false ,
     }
 
-  class { "::apache::dev": }
+  class { '::apache::dev': }
 
   if $enable_rewrite == true {
-    ::apache::mod { "rewrite": }
+    ::apache::mod { 'rewrite': }
   }
 
   if $enable_proxying == true {
-    ::apache::mod { "proxy": }
-    ::apache::mod { "proxy_html": }
-    ::apache::mod { "proxy_http": }
+    ::apache::mod { 'proxy': }
+    ::apache::mod { 'proxy_html': }
+    ::apache::mod { 'proxy_http': }
   }
 
   ::apache::listen { $listen_ports: }

@@ -7,8 +7,8 @@ describe 'user class' do
       pp = default_manifest + <<-EOS
         csrterc::user { 'dave':
           hashed_password   => '$6$AiO5XZYT$71pQRC5qGrkHbe6hFhHQcrkpmrz2U7tqXJKQ/2PR5CLOd/Clr9tI/BVbxfDONzByyrf3GBvCvuellN/CwkH7I0' ,
-          plaintext_password => '12345' , 
-          group_name         => 'sudo' , 
+          plaintext_password => '12345' ,
+          group_name         => 'sudo' ,
         }
       EOS
 

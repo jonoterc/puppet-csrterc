@@ -43,7 +43,7 @@ define csrterc::user (
     shell      => $user_shell ,
     gid        => $group_name ,
     groups     => $additional_user_groups ,
-    require    => $user_requirements
+    require    => $user_requirements ,
   }
 
   # ensure password is set on the first pass,
@@ -52,9 +52,9 @@ define csrterc::user (
     command => "usermod -p '${hashed_password}' ${user_name}" ,
     onlyif  => "egrep -q '^${user_name}:!:' /etc/shadow" ,
     require => [
-        User[$user_name] ,
-        Group[$group_name] ,
-      ],
+      User[$user_name] ,
+      Group[$group_name] ,
+    ],
   }
 
   if $rvm_user == true {

@@ -33,7 +33,7 @@ hosts.each do |host|
     'centos-64-x64' => %w(ruby-devel augeas-devel) ,
     'ubuntu-server-12042-x64' => %w(pkg-config libaugeas-dev)
   }
-  
+
   host_pkgs = pkgs[host.to_s] || []
   host_pkgs.each do |pkg|
     puts "installing #{host}-specific package #{pkg}"
@@ -52,7 +52,7 @@ end
 
 RSpec.configure do |c|
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-  
+
   # Readable test descriptions
   c.formatter = :documentation
 

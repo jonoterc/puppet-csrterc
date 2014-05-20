@@ -7,8 +7,9 @@ class csrterc::repo {
     'redhat': {
       # ? class { 'yum': }
     }
-  }    
-  
-  
+    default : {
+    }
+  }
+
 }
 

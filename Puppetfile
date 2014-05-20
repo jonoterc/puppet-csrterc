@@ -24,14 +24,14 @@ mod 'puppetlabs/postgresql', '3.3.0'
 # fork fix merged, waiting on official forge release
 # mod 'puppetlabs/apache', '???'
 mod 'puppetlabs/apache', # using full name to ensure this is recognized by dependent modules
-	:git => "https://github.com/jonoterc/puppetlabs-apache.git",
-	:ref => 'fix_passenger_redhat'
+  :git => "https://github.com/jonoterc/puppetlabs-apache.git",
+  :ref => 'fix_passenger_redhat'
 
 ## rvm/ruby
 # mod 'maestrodev/rvm', '1.2.0'
 mod 'maestrodev/rvm',
-	:git => "https://github.com/jonoterc/puppet-rvm.git",
-	:ref => 'mod-passenger'
+  :git => "https://github.com/jonoterc/puppet-rvm.git",
+  :ref => 'mod-passenger'
 
 ## version control
 # fork fix merged, waiting on official forge release

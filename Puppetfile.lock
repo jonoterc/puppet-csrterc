@@ -1,5 +1,5 @@
 FORGE
-  remote: http://forge.puppetlabs.com
+  remote: https://forgeapi.puppetlabs.com
   specs:
     ajjahn/samba (0.2.0)
     attachmentgenie/ssh (1.2.1)
@@ -11,7 +11,7 @@ FORGE
       puppetlabs/stdlib (>= 2.2.1)
     puppetlabs/concat (1.1.0)
       puppetlabs/stdlib (>= 4.0.0)
-    puppetlabs/firewall (1.1.0)
+    puppetlabs/firewall (1.1.2)
     puppetlabs/mysql (2.1.0)
       puppetlabs/stdlib (>= 2.2.1)
     puppetlabs/postgresql (3.3.0)
@@ -21,6 +21,7 @@ FORGE
       puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs/sqlite (0.0.1)
     puppetlabs/stdlib (4.1.0)
+    puppetlabs/vcsrepo (1.0.0)
     rcoleman/netatalk (0.3.0)
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (<= 4.1.0, >= 2.0.0)
@@ -45,16 +46,9 @@ GIT
       puppetlabs/stdlib (>= 2.4.0)
 
 GIT
-  remote: https://github.com/jonoterc/puppetlabs-vcsrepo.git
-  ref: fix_svnlook
-  sha: 93b73f6877f9bdfdd291e2dd5ff5b8f6247d833d
-  specs:
-    puppetlabs/vcsrepo (0.2.0)
-
-GIT
   remote: https://github.com/puppetlabs/puppetlabs-apache.git
   ref: master
-  sha: 74dff45e5babcba3b20e8382ae969ccabda74aa2
+  sha: c750c15954d07e7997e22c329fc1e7ef88bbd9b6
   specs:
     apache (1.0.1)
       puppetlabs/concat (>= 1.0.0)
@@ -71,6 +65,6 @@ DEPENDENCIES
   puppetlabs/postgresql (= 3.3.0)
   puppetlabs/sqlite (= 0.0.1)
   puppetlabs/stdlib (= 4.1.0)
-  puppetlabs/vcsrepo (>= 0)
+  puppetlabs/vcsrepo (= 1.0.0)
   rcoleman/netatalk (= 0.3.0)
 

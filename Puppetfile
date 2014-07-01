@@ -34,8 +34,4 @@ mod 'maestrodev/rvm',
   :ref => 'mod-passenger'
 
 ## version control
-# fork fix merged, waiting on official forge release
-# mod 'puppetlabs/vcsrepo', '???'
-mod 'puppetlabs/vcsrepo',
-  :git => "https://github.com/jonoterc/puppetlabs-vcsrepo.git" ,
-  :ref => 'fix_svnlook'
+mod 'puppetlabs/vcsrepo', '1.0.0'

@@ -185,9 +185,11 @@ define csrterc::webapp::rvm_apache_passenger_app (
         }
       }
 
+      $app_bundle_install_log_path = "/home/${app_user}/bundle_install_${app_name}_${app_ruby}.log"
+
       exec { "bundle install ${app_path}":
-        command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use ${app_ruby_gemset} && cd ${app_path} && mkdir -p log && bundle install > log/bundle_install_${app_ruby}.log' ${app_user}" ,
-        unless   => "ls -al ${app_path}/log/bundle_install_${app_ruby}.log" ,
+        command  => "/bin/su --login --shell /bin/bash -c 'source /usr/local/rvm/scripts/rvm && rvm use ${app_ruby_gemset} && cd \"${app_path}\" && mkdir -p log && bundle install > \"${app_bundle_install_log_path}\"' ${app_user}" ,
+        unless   => "ls -al \"${app_bundle_install_log_path}\"" ,
         provider => 'shell' ,
         require  => [
           Csrterc::User[$app_user] ,

@@ -1,13 +1,13 @@
-forge 'http://forge.puppetlabs.com'
+forge 'https://forgeapi.puppetlabs.com'
 
 ## support modules
 # force a more recent stdlib
-mod 'puppetlabs/stdlib', '4.1.0'
+mod 'puppetlabs/stdlib', '4.1.0' # latest compatible with rcoleman/netatalk
 # supports puppetlabs/postgresql on ubuntu
-mod 'puppetlabs/apt', '1.4.0'
+mod 'puppetlabs/apt', '1.5.1'
 
 ## networking
-mod 'attachmentgenie/ssh', '1.2.1'
+mod 'attachmentgenie/ssh', '1.3.1'
 mod 'rcoleman/netatalk', '0.3.0'
 mod 'ajjahn/samba', '0.2.0'
 
@@ -16,16 +16,11 @@ mod 'example42/monit', '2.0.13'
 
 ## databases
 mod 'puppetlabs/sqlite', '0.0.1'
-mod 'puppetlabs/mysql', '2.1.0'
-mod 'puppetlabs/postgresql', '3.3.0'
+mod 'puppetlabs/mysql', '2.3.0'
+mod 'puppetlabs/postgresql', '3.4.0'
 
 ## webserver
-# restore this once the package_ensure bugfix has been released on puppetforge
-# fork fix merged, waiting on official forge release
-# mod 'puppetlabs/apache', '???'
-mod 'puppetlabs/apache', # using full name to ensure this is recognized by dependent modules
-  :git => "https://github.com/jonoterc/puppetlabs-apache.git",
-  :ref => 'fix_passenger_redhat'
+mod 'puppetlabs/apache', '1.1.0'
 
 ## rvm/ruby
 # mod 'maestrodev/rvm', '1.2.0'
@@ -34,4 +29,4 @@ mod 'maestrodev/rvm',
   :ref => 'mod-passenger'
 
 ## version control
-mod 'puppetlabs/vcsrepo', '1.0.0'
+mod 'puppetlabs/vcsrepo', '1.1.0'

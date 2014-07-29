@@ -2,7 +2,12 @@ class csrterc::webapp::rvm_apache_passenger (
     $rvm_version ,
     $passenger_ruby ,
     $passenger_version ,
-    $default_ruby      = undef
+    $default_ruby               = undef ,
+    $apache_enable_default_mods = undef ,
+    $apache_enable_rewrite      = undef ,
+    $apache_enable_proxying     = undef ,
+    $apache_enable_sendfile     = undef ,
+    $apache_listen_ports        = undef ,
   ) {
 
   if ! defined(Class['csrterc::rvm']) {
@@ -22,7 +27,12 @@ class csrterc::webapp::rvm_apache_passenger (
 
   if ! defined(Class['csrterc::webserver::apache']) {
     class { 'csrterc::webserver::apache':
-      require => Class['csrterc::rvm'] ,
+      enable_default_mods => $apache_enable_default_mods ,
+      enable_rewrite      => $apache_enable_rewrite ,
+      enable_proxying     => $apache_enable_proxying ,
+      enable_sendfile     => $apache_enable_sendfile ,
+      listen_ports        => $apache_listen_ports ,
+      require             => Class['csrterc::rvm'] ,
     }
   }
 

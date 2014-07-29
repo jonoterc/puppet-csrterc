@@ -7,6 +7,8 @@ FORGE
     example42/monit (2.0.13)
       example42/puppi (>= 2.0.0)
     example42/puppi (2.1.9)
+    maestrodev/rvm (1.6.0)
+      puppetlabs/stdlib (>= 3.2.0)
     puppetlabs/apache (1.1.0)
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (>= 2.4.0)
@@ -29,30 +31,11 @@ FORGE
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (<= 4.1.0, >= 2.0.0)
 
-GIT
-  remote: https://github.com/jonoterc/puppet-rvm.git
-  ref: mod-passenger
-  sha: db31797e8a9a804769c9e401d77201c0bae388bf
-  specs:
-    maestrodev/rvm (1.5.4)
-      apache (>= 0)
-      puppetlabs/apache (>= 0.9.0)
-      puppetlabs/stdlib (>= 3.2.0)
-
-GIT
-  remote: https://github.com/puppetlabs/puppetlabs-apache.git
-  ref: master
-  sha: d5c9d83c80d72b50b029a7787cd003826ce75438
-  specs:
-    apache (1.0.1)
-      puppetlabs/concat (>= 1.0.0)
-      puppetlabs/stdlib (>= 2.4.0)
-
 DEPENDENCIES
   ajjahn/samba (= 0.2.0)
   attachmentgenie/ssh (= 1.3.1)
   example42/monit (= 2.0.13)
-  maestrodev/rvm (>= 0)
+  maestrodev/rvm (= 1.6.0)
   puppetlabs/apache (= 1.1.0)
   puppetlabs/apt (= 1.5.1)
   puppetlabs/mysql (= 2.3.0)

@@ -23,10 +23,7 @@ mod 'puppetlabs/postgresql', '3.4.0'
 mod 'puppetlabs/apache', '1.1.0'
 
 ## rvm/ruby
-# mod 'maestrodev/rvm', '1.2.0'
-mod 'maestrodev/rvm',
-  :git => "https://github.com/jonoterc/puppet-rvm.git",
-  :ref => 'mod-passenger'
+mod 'maestrodev/rvm', '1.6.0'
 
 ## version control
 mod 'puppetlabs/vcsrepo', '1.1.0'
